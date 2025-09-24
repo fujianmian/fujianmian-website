@@ -1,5 +1,6 @@
 'use client';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail, ExternalLink, ChevronDown, Calendar, MapPin, Camera, Code } from 'lucide-react';
 
@@ -21,7 +22,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'events', 'contact'];
+      const sections = ['home', 'about', 'projects', 'experience', 'events', 'contact'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -45,14 +46,16 @@ export default function Portfolio() {
       description: "An innovative learning platform that transforms uploaded content into interactive study tools like flashcards, mind maps, and AI-generated videos, empowering students to master concepts effortlessly.",
       tech: ["Next.js", "TypeScript", "AWS ECS", "AWS Bedrock"],
       github: "https://github.com/fujianmian/TrialGreatHack",
-      demo: "https://youtube.com/watch?v=demo-studyhub" // Placeholder, awaiting your input
+      demo: "https://youtu.be/px2lVRKZ2GU",
+      image: "/projects/studyhub.jpg" // Add your project image here
     },
     {
       title: "Skill3",
       description: "A blockchain-powered certificate storage solution ensuring authenticity through immutability. Secured third place at Buildstation Ideathon 2024 for its innovative approach to credential verification.",
       tech: ["Next.js", "Figma", "Maschain"],
       github: "https://github.com/skill-3/skill3",
-      demo: "https://youtu.be/2sXv7UU_QEc?si=-eKPEuTXREyKXlHj"
+      demo: "https://youtu.be/2sXv7UU_QEc?si=-eKPEuTXREyKXlHj",
+      image: "/projects/skill3.jpg" // Add your project image here
     }
   ];
 
@@ -63,7 +66,7 @@ export default function Portfolio() {
       date: "February 2025",
       location: "Asia Pacific University, Malaysia",
       type: "Workshop",
-      image: "workshop",
+      image: "/events/eth-workshop.jpg", // Add your event image here
       icon: <Camera size={36} />
     },
     {
@@ -72,7 +75,7 @@ export default function Portfolio() {
       date: "August 2024",
       location: "Asia Pacific University, Malaysia",
       type: "Hackathon",
-      image: "hackathon",
+      image: "/events/devmatch-2024.jpg", // Add your event image here
       icon: <Code size={36} />
     },
     {
@@ -81,7 +84,7 @@ export default function Portfolio() {
       date: "August 2025",
       location: "Asia Pacific University, Malaysia",
       type: "Hackathon",
-      image: "hackathon",
+      image: "/events/devmatch-2025.jpg", // Add your event image here
       icon: <Camera size={36} />
     }
   ];
@@ -110,7 +113,7 @@ export default function Portfolio() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'projects', 'events', 'contact'].map((item) => (
+              {['home', 'about', 'projects', 'experience', 'events', 'contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -137,7 +140,7 @@ export default function Portfolio() {
           {/* Mobile Navigation */}
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-gray-800">
-              {['home', 'about', 'projects', 'events', 'contact'].map((item) => (
+              {['home', 'about', 'projects', 'experience', 'events', 'contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -155,8 +158,16 @@ export default function Portfolio() {
       <section id="home" className="pt-20 min-h-screen flex items-center bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full mx-auto mb-8 flex items-center justify-center border-4 border-purple-400/50">
-              <span className="text-white text-4xl font-bold">HJ</span>
+            {/* Profile Image - Replace the gradient circle with your photo */}
+            <div className="w-32 h-32 mx-auto mb-8 relative">
+              <Image
+                src="/profile/profile-photo.jpg" // Add your profile photo here
+                alt="Heng Jun Yong"
+                width={128}
+                height={128}
+                className="rounded-full object-cover border-4 border-purple-400/50"
+                priority
+              />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Hey, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Heng Jun Yong</span>
@@ -210,7 +221,16 @@ export default function Portfolio() {
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <div className="w-full h-96 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg shadow-xl"></div>
+              {/* About Me Image */}
+              <div className="w-full h-96 relative rounded-lg overflow-hidden shadow-xl">
+                <Image
+                  src="/about/about-photo.jpg" // Add your about photo here
+                  alt="About Heng Jun Yong"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -219,11 +239,21 @@ export default function Portfolio() {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-gray-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-purple-400 mb-12">Featured Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-purple-400 mb-12">Built Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <div key={index} className="bg-gray-800 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 border border-gray-700">
-                <div className="h-48 bg-gradient-to-br from-purple-600 to-indigo-600"></div>
+                {/* Project Image */}
+                <div className="h-48 relative">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-800/50 to-transparent"></div>
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
                   <p className="text-gray-400 mb-4">{project.description}</p>
@@ -264,6 +294,94 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Work Experience Section */}
+      <section id="experience" className="py-20 bg-gray-850">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-purple-400 mb-12">Work Experience</h2>
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gray-800 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 border border-gray-700">
+              {/* Company Image - Full Width */}
+              <div className="h-90 relative">
+                <Image
+                  src="/experience/razer-internship.jpg" // Add your internship photo here
+                  alt="Razer Malaysia Internship"
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-800/70 to-transparent"></div>
+              </div>
+              
+              {/* Experience Details */}
+              <div className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">Software Engineering Intern</h3>
+                      <p className="text-lg text-green-400 font-medium">Razer Malaysia</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center mb-6 text-gray-400">
+                    <Calendar size={18} className="mr-2 text-purple-400" />
+                    <span>April 28, 2025 - September 12, 2025</span>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <p className="text-gray-300 leading-relaxed mb-4">
+                      Contributed to maintaining critical company internal websites and spearheaded groundbreaking research in automation testing frameworks. As one of the pioneering team members, I played a crucial role in advancing the company's testing infrastructure and improving development workflows.
+                    </p>
+                    <ul className="text-gray-300 space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-purple-400 mr-2 mt-1">•</span>
+                        <span>Maintained and enhanced internal web applications ensuring optimal performance and reliability</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-purple-400 mr-2 mt-1">•</span>
+                        <span>Pioneered automation testing research, becoming one of the first team members to implement modern testing frameworks</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-purple-400 mr-2 mt-1">•</span>
+                        <span>Collaborated with senior engineers to establish best practices for automated testing workflows</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-white mb-3">Technologies & Tools</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {["Jenkins", "AWS CloudWatch", ".NET", "Playwright", "MySQL"].map((tech, index) => (
+                        <span
+                          key={index}
+                          className="bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700/30"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-4">
+                    <a
+                      href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fheng-jun-yong-815455349_razer-internship-softwareengineering-activity-7376271775535484930-bSkz%3Futm_source%3Dshare%26utm_medium%3Dmember_desktop%26rcm%3DACoAAFcY-1EBpJovRjnKxnAk0EW3enccJRkR-h8%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExNnhFTmpZUFVTQVlmb0t2NwEep079nhqC55fL2CwfzMou435TLnBVxjopqGDLNFHujP8M6ttDmpX-rsrWQKk_aem_Ao15Vsg2JtkgSTqiC6tZHg&h=AT3vV1RZv57DZwvkJAqZqm7oo7n0q9R8wL4HjyAen-_C_nCCImipPYOafyOuW6W4onV6MJxyGWZIbaW5w4Dc15VxTziv95ni429jM63jfaMrctTwTvBQTCH3Ya4W53_aBa5OTvzh90iJCYiEBFylDA" // Replace with your actual LinkedIn post URL
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors font-medium"
+                    >
+                      <Linkedin size={18} className="mr-2" />
+                      View Experience Post
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
       {/* Events Section */}
       <section id="events" className="py-20 bg-gray-850">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -271,16 +389,15 @@ export default function Portfolio() {
           <div className="grid md:grid-cols-2 gap-8">
             {events.map((event, index) => (
               <div key={index} className="bg-gray-800 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 border border-gray-700">
-                <div className={`h-64 bg-gradient-to-br ${getImageGradient(event.image)} flex items-center justify-center relative`}>
-                  <div className="absolute inset-0 bg-black/30"></div>
-                  <div className="relative z-10 text-center">
-                    <div className="text-4xl mb-2">
-                      {event.icon}
-                    </div>
-                    <span className="bg-purple-600/80 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      {event.type}
-                    </span>
-                  </div>
+                {/* Event Image */}
+                <div className="h-64 relative">
+                  <Image
+                    src={event.image}
+                    alt={event.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-white mb-3">{event.title}</h3>
