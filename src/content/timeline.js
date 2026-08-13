@@ -1,0 +1,56 @@
+import { resume } from "./resume";
+
+const [razerExperience] = resume.experience;
+
+export const timeline = [
+  {
+    id: "devmatch-hackathon-2024",
+    date: "2024-08",
+    dateLabel: "August 2024",
+    year: "2024",
+    title: "Devmatch Hackathon 2024",
+    organization: "Asia Pacific University, Malaysia",
+    preview: "Transformed Figma designs into responsive Next.js code as a frontend developer.",
+    description: "Transformed Figma designs into responsive Next.js code as a frontend developer, contributing to a high-impact hackathon project that pushed the boundaries of innovation.",
+    technologies: ["Next.js", "Figma"],
+    image: { src: "/events/devmatch-2024-timeline.jpg", alt: "Devmatch Hackathon 2024", width: 1600, height: 1200 },
+    kind: "Hackathon",
+  },
+  {
+    id: "eth-uprising-workshop",
+    date: "2025-02",
+    dateLabel: "February 2025",
+    year: "2025",
+    title: "ETH Uprising Workshop",
+    organization: "Asia Pacific University, Malaysia",
+    preview: "Captured the energy of a dynamic blockchain workshop through photography.",
+    description: "Captured the energy of a dynamic blockchain workshop through photography, helping participants prepare for a major hackathon with hands-on Ethereum development skills.",
+    image: { src: "/events/eth-workshop.jpg", alt: "ETH Uprising Workshop", width: 1280, height: 836 },
+    kind: "Workshop",
+  },
+  {
+    id: "razer-internship",
+    date: razerExperience.startDate,
+    dateLabel: razerExperience.dateLabel,
+    year: "2025",
+    title: razerExperience.role,
+    organization: razerExperience.company,
+    preview: "Contributed to maintaining critical company internal websites and spearheaded groundbreaking research in automation testing frameworks.",
+    description: razerExperience.description,
+    technologies: razerExperience.technologies,
+    image: { ...razerExperience.image, width: 1280, height: 960 },
+    kind: "Experience",
+  },
+  {
+    id: "devmatch-hackathon-2025",
+    date: "2025-08",
+    dateLabel: "August 2025",
+    year: "2025",
+    title: "Devmatch Hackathon 2025",
+    organization: "Asia Pacific University, Malaysia",
+    preview: "Mentored aspiring developers and captured stunning event photos.",
+    description: "Mentored aspiring developers and captured stunning event photos, fostering a vibrant tech community while guiding students through technical challenges.",
+    image: { src: "/events/devmatch-2025.jpg", alt: "Devmatch Hackathon 2025", width: 882, height: 582 },
+    kind: "Hackathon",
+  },
+];
