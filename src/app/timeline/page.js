@@ -14,7 +14,7 @@ export default async function TimelinePage({ searchParams }) {
 
   return (
     <section className="mx-auto w-full max-w-[100rem]">
-      <SectionHero
+      {/* <SectionHero
         title="Timeline"
         titleId="timeline-title"
         decorativeWord="TIMELINE"
@@ -22,7 +22,7 @@ export default async function TimelinePage({ searchParams }) {
 
       <p id={scrollHintId} className="mt-5 hidden items-center gap-2 text-sm text-slate-400 lg:flex">
         <span aria-hidden="true">←</span> Scroll or use arrow keys to explore the chronology <span aria-hidden="true">→</span>
-      </p>
+      </p> */}
 
       <TimelineInteractive entries={timeline} hintId={scrollHintId} debugEnabled={debugEnabled} />
     </section>

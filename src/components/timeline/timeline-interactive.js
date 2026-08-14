@@ -348,6 +348,25 @@ export function TimelineInteractive({ entries, hintId, debugEnabled = false }) {
     if (frameRef.current === null) frameRef.current = window.requestAnimationFrame(runFrame);
   }, [runFrame]);
 
+  const keepExpandedCardInView = useCallback((id) => {
+    const strip = stripRef.current;
+    const card = strip?.querySelector(`[data-timeline-card="${id}"]`);
+    if (!strip || !card) return;
+
+    const stripRect = strip.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const inset = 24;
+    const leftLimit = stripRect.left + inset;
+    const rightLimit = stripRect.right - inset;
+    const delta = cardRect.left < leftLimit
+      ? cardRect.left - leftLimit
+      : cardRect.right > rightLimit
+        ? cardRect.right - rightLimit
+        : 0;
+
+    if (delta) strip.scrollBy({ left: delta, behavior: prefersReducedMotion ? "auto" : "smooth" });
+  }, [prefersReducedMotion]);
+
   useEffect(() => {
     if (!debugEnabled) return undefined;
 
@@ -532,6 +551,14 @@ export function TimelineInteractive({ entries, hintId, debugEnabled = false }) {
   }, [interaction, refreshGeometry, scheduleFrame]);
 
   useEffect(() => {
+    const expandedEventId = getExpandedEventId(interaction);
+    if (!expandedEventId) return undefined;
+
+    const frame = window.requestAnimationFrame(() => keepExpandedCardInView(expandedEventId));
+    return () => window.cancelAnimationFrame(frame);
+  }, [interaction, keepExpandedCardInView]);
+
+  useEffect(() => {
     scheduleFrame();
     return () => {
       if (frameRef.current !== null) {
@@ -595,9 +622,9 @@ export function TimelineInteractive({ entries, hintId, debugEnabled = false }) {
         aria-describedby={hintId}
         tabIndex={0}
         onKeyDown={handleStripKeyDown}
-        className="timeline-strip mt-5 hidden h-[56rem] overflow-x-auto overscroll-x-contain lg:block"
+        className="timeline-strip hidden h-[calc(100dvh-8rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain lg:block"
       >
-        <div className="relative flex h-full min-w-max border-y border-slate-800 px-10">
+        <div className="relative flex h-full min-w-max border-y border-slate-800 px-40">
           <span aria-hidden="true" className="absolute inset-x-0 top-1/2 h-px bg-slate-600" />
           <span aria-hidden="true" className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950 pl-2 text-lg text-slate-500">→</span>
           {entries.map((entry, index) => (

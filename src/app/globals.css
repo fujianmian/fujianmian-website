@@ -131,6 +131,20 @@ body {
   z-index: 30;
 }
 
+@media (min-width: 1024px) {
+  .timeline-event-card[data-expanded="true"] {
+    display: grid;
+    width: min(39rem, calc(100vw - 10rem));
+    grid-template-columns: minmax(15rem, 0.9fr) minmax(18rem, 1.1fr);
+    align-items: start;
+  }
+
+  .timeline-event-card[data-expanded="true"] .timeline-card-preview {
+    padding: 1.25rem;
+  }
+
+}
+
 .timeline-dot {
   display: block;
   transform: scale(var(--timeline-dot-scale, 1));
@@ -219,6 +233,13 @@ body {
   grid-template-rows: 1fr;
   margin: 0 1.25rem 1.25rem;
   opacity: 1;
+}
+
+@media (min-width: 1024px) {
+  .timeline-event-card[data-expanded="true"] .timeline-card-details {
+    align-self: stretch;
+    margin: 1.25rem 1.25rem 1.25rem 0;
+  }
 }
 
 @media (min-width: 1024px) and (max-height: 680px) {
