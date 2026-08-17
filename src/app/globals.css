@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -122,6 +123,16 @@ body {
   transform-origin: center bottom;
 }
 
+.timeline-track {
+  transition: padding-left 220ms ease;
+}
+
+@media (min-width: 1024px) {
+  .timeline-track[data-expanded-edge="start"] {
+    padding-left: 28rem;
+  }
+}
+
 /* Functional fallback: selected timeline events must remain visible even if
    the browser pauses the optional requestAnimationFrame enhancement. */
 .timeline-event-card[data-expanded="true"] {
@@ -134,13 +145,20 @@ body {
 @media (min-width: 1024px) {
   .timeline-event-card[data-expanded="true"] {
     display: grid;
-    width: min(39rem, calc(100vw - 10rem));
-    grid-template-columns: minmax(15rem, 0.9fr) minmax(18rem, 1.1fr);
+    width: min(68rem, calc(100vw - 6rem));
+    grid-template-columns: minmax(17rem, 0.8fr) minmax(34rem, 1.6fr);
     align-items: start;
   }
 
   .timeline-event-card[data-expanded="true"] .timeline-card-preview {
     padding: 1.25rem;
+  }
+
+  .timeline-event-card[data-expanded="true"] .timeline-card-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.9fr) minmax(18rem, 1.1fr);
+    gap: 1.25rem;
+    align-items: start;
   }
 
 }

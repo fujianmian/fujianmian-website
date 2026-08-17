@@ -59,12 +59,26 @@ function TimelineDiagnostics({ snapshot, probes }) {
   );
 }
 
-function TimelinePreview({ entry, imageSizes }) {
-  return (
-    <>
+function TimelinePhoto({ entry, imageSizes }) {
+  if (entry.image) {
+    return (
       <div className="relative aspect-[4/3] overflow-hidden border border-slate-800">
         <Image src={entry.image.src} alt={entry.image.alt} fill sizes={imageSizes} className="object-cover" />
       </div>
+    );
+  }
+
+  return (
+    <div className="flex aspect-[4/3] items-center justify-center border border-dashed border-slate-700 bg-slate-950/50 p-5 text-center">
+      <p className="text-xs font-semibold tracking-[0.14em] text-slate-400 uppercase">Photo slot ready</p>
+    </div>
+  );
+}
+
+function TimelinePreview({ entry, imageSizes }) {
+  return (
+    <>
+      <TimelinePhoto entry={entry} imageSizes={imageSizes} />
       <div className="min-w-0">
         <p className="text-xs font-semibold tracking-[0.16em] text-cyan-200 uppercase">{entry.year} · {entry.kind}</p>
         <time dateTime={entry.date} className="mt-2 block text-sm text-slate-400">{entry.dateLabel}</time>
@@ -77,7 +91,7 @@ function TimelinePreview({ entry, imageSizes }) {
 }
 
 function EventDetails({ entry, id, expanded = true, mobile = false }) {
-  const content = (
+  const detailCopy = (
     <>
       <p className="leading-6 text-slate-300">{entry.description}</p>
       {entry.technologies?.length > 0 && (
@@ -89,6 +103,12 @@ function EventDetails({ entry, id, expanded = true, mobile = false }) {
         </>
       )}
     </>
+  );
+  const content = mobile ? detailCopy : (
+    <div className="timeline-card-detail-layout">
+      <TimelinePhoto entry={entry} imageSizes="(max-width: 1023px) 100vw, 20rem" />
+      <div>{detailCopy}</div>
+    </div>
   );
 
   if (mobile) return <div id={id} className="border-t border-slate-800 px-4 pt-4 pb-4 sm:col-span-2 sm:px-5">{content}</div>;
@@ -613,6 +633,9 @@ export function TimelineInteractive({ entries, hintId, debugEnabled = false }) {
     setInteraction((current) => current.focusedId ? nextInteraction(current, { focusedId: null }) : current);
   };
 
+  const expandedEventId = getExpandedEventId(interaction);
+  const expandedEdge = expandedEventId === entries[0]?.id ? "start" : undefined;
+
   return (
     <>
       <div
@@ -624,7 +647,7 @@ export function TimelineInteractive({ entries, hintId, debugEnabled = false }) {
         onKeyDown={handleStripKeyDown}
         className="timeline-strip hidden h-[calc(100dvh-8rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain lg:block"
       >
-        <div className="relative flex h-full min-w-max border-y border-slate-800 px-40">
+        <div data-expanded-edge={expandedEdge} className="timeline-track relative flex h-full min-w-max border-y border-slate-800 px-40">
           <span aria-hidden="true" className="absolute inset-x-0 top-1/2 h-px bg-slate-600" />
           <span aria-hidden="true" className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-950 pl-2 text-lg text-slate-500">→</span>
           {entries.map((entry, index) => (
@@ -632,7 +655,7 @@ export function TimelineInteractive({ entries, hintId, debugEnabled = false }) {
               key={entry.id}
               entry={entry}
               index={index}
-              isExpanded={getExpandedEventId(interaction) === entry.id}
+              isExpanded={expandedEventId === entry.id}
               onToggle={toggleSelection}
               onFocus={handleFocus}
               onBlur={handleBlur}

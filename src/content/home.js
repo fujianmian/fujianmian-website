@@ -2,7 +2,8 @@ import { projects } from "./projects";
 import { resume } from "./resume";
 import { timeline } from "./timeline";
 
-const [studyHub, skill3] = projects;
+const studyHub = projects.find((project) => project.slug === "studyhub");
+const devMatch = projects.find((project) => project.slug === "devmatch");
 const [razerExperience] = resume.experience;
 const ethWorkshop = timeline.find((entry) => entry.id === "eth-uprising-workshop");
 
@@ -18,11 +19,11 @@ export const featuredHomeItems = [
     objectPosition: "center center",
   },
   {
-    id: "skill3",
-    title: skill3.title,
-    context: "A blockchain-powered certificate storage solution",
+    id: "devmatch",
+    title: devMatch.title,
+    context: "Third-place front-end project at DevMatch Hackathon 2024",
     category: "Project",
-    image: skill3.image,
+    image: devMatch.image,
     href: "/projects",
     accent: "#c4b5fd",
     objectPosition: "center center",

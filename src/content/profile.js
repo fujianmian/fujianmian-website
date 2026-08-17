@@ -1,10 +1,10 @@
 export const profile = {
   name: "Heng Jun Yong",
   brand: "Fujianmian",
-  introduction: "A Year 3 Software Engineering student revolutionizing the future with blockchain and cloud computing innovations.",
+  introduction: "Software Engineering graduate with hands-on experience in .NET development, AWS cloud services, full-stack development, software testing, and CI/CD.",
   about: [
-    "I'm a Year 3 Software Engineering student at Asia Pacific University, diving deep into the worlds of cloud computing and blockchain. My journey is fueled by a relentless curiosity to master cutting-edge technologies and create solutions that make a real impact.",
-    "When I'm not coding, you'll catch me gaming, snapping photos, or networking with tech enthusiasts to spark new ideas. My goal? To push the boundaries of innovation and build a future where technology empowers everyone.",
+    "I build enterprise and cloud-backed applications, with experience in observability, testing, and scalable full-stack development through industry work, academic projects, and hackathons.",
+    "I enjoy turning practical requirements into thoughtful technical solutions, whether that means a reliable internal web application, a mobile experience, or an AI-assisted learning platform.",
   ],
   interests: ["Gaming", "Photography", "Networking"],
   email: "jun379e@gmail.com",
