@@ -34,6 +34,21 @@ body {
   .desktop-sidebar:focus-within {
     transform: translateX(0);
   }
+
+  .desktop-sidebar[data-guidance-visible="true"] {
+    transform: translateX(0);
+  }
+}
+
+.sidebar-guidance-hint {
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  transition: opacity 180ms ease 120ms, transform 180ms ease 120ms;
+}
+
+.sidebar-guidance-hint-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 :focus-visible {
